@@ -1,8 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"mypkg"
+	"os"
 )
 
 func main() {
@@ -37,23 +41,60 @@ func sum(num ...int) (result int) {
 type ID int
 type PRIORITY int
 type Task struct {
-	id     ID
-	pri    PRIORITY
-	detail string
-	done   bool
+	Id     ID
+	Pri    PRIORITY
+	Detail string
+	Done   bool
 }
 
 func task(id ID, pri PRIORITY) {
 	fmt.Println(string(id) + "-" + string(pri))
 
 	var task Task = Task{
-		id:     id,
-		pri:    pri,
-		detail: "myTask",
-		done:   false,
+		Id:     id,
+		Pri:    pri,
+		Detail: "myTask",
+		Done:   false,
 	}
 
-	fmt.Println(task)
+	b, err := json.Marshal(task)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Print("json:")
+	fmt.Println(string(b))
+
+	file, err := os.Create("./file.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer file.Close()
+
+	message := []byte("hello world\n")
+	message2 := "hello world2\n"
+
+	_, err = file.Write(message)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = file.WriteString(message2)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = fmt.Fprint(file, "hello world3\n")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	data, err := ioutil.ReadFile("./file.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(data)
+
 }
 
 func Print(value interface{}) {
