@@ -3,9 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type Person struct {
@@ -17,6 +20,8 @@ type Person struct {
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "This is Index Page")
 }
+
+var t = template.Must(template.ParseFiles("index.html"))
 
 // Person Page Action
 func PersonHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,6 +48,24 @@ func PersonHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.WriteHeader(http.StatusCreated)
+	} else if r.Method == "GET" {
+		id, err := strconv.Atoi(r.URL.Query().Get("id"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filename := fmt.Sprintf("%d.txt", id)
+		b, err := ioutil.ReadFile(filename)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		person := Person{
+			ID:   id,
+			Name: string(b),
+		}
+
+		t.Execute(w, person)
 	}
 }
 
