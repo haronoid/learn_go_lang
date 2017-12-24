@@ -1,2 +1,2 @@
-export GOPATH=`pwd`
+export GOPATH=`echo pwd`
 
