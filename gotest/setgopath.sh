@@ -1,2 +1,3 @@
-export GOPATH=`echo pwd`
-
+var=`pwd`
+export GOPATH=$var
+echo 'GOPATH='$GOPATH
