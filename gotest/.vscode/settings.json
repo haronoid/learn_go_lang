@@ -1,0 +1,8 @@
+{
+    // 「go env GOPATH」と同じパスを設定します
+    // 私は「みんなのGO言語」に習って、Macにて以下のディレクトリに配置しています
+    "go.gopath": "/home/parallels/git/learn_go_lang/gotest",
+    
+    // 例えば、ソースコード保存時の自動フォーマットを有効にするには以下のように設定します
+     "go.formatOnSave": true
+    }
