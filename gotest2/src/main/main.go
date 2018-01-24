@@ -16,6 +16,8 @@ func main() {
 	fmt.Printf("NumGoroutine: %d\n", runtime.NumGoroutine())
 	fmt.Printf("Version: %s\n", runtime.Version())
 
+	// slice
+
 	s := make([]int, 5, 10)
 	s[2] = 2
 	fmt.Println(s)
@@ -33,6 +35,24 @@ func main() {
 	fmt.Println(sum(1, 2, 3, 5, 6, 7))
 
 	fmt.Println(sum(s2...))
+
+	a := [5]int{1, 2, 3, 4, 5}
+	a2 := a[1:3]
+	fmt.Println(a2)
+
+	// map
+
+	m := make(map[string]string)
+
+	m["A"] = "Apple"
+	m["B"] = "Banana"
+
+	r, ok := m["A"] // r == "Apple", ok == true
+	_, ok = m["C"]  // r == "", ok == false
+
+	fmt.Printf("m=%s\n", m)
+	fmt.Printf("r=%s, ok=%t\n", r, ok)
+
 }
 
 func sum(s ...int) int {
