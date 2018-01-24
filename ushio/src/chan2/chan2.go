@@ -31,8 +31,8 @@ func Start() {
 	go GetContent("https://www.bing.com/", c)
 	go GetContent("https://www.yahoo.co.jp", c)
 	result01, result02 := <-c, <-c
+	close(c)
 	fmt.Println(result01)
 	fmt.Println("********-----------")
 	fmt.Println(result02)
-
 }

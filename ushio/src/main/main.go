@@ -6,6 +6,7 @@ import (
 	"buf"
 	"chan2"
 	"para"
+	"time"
 )
 
 func main() {
@@ -16,4 +17,6 @@ func main() {
 	buf.Start()
 
 	para.Start()
+
+	time.Sleep(3 * time.Second)
 }

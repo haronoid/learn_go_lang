@@ -53,6 +53,22 @@ func main() {
 	fmt.Printf("m=%s\n", m)
 	fmt.Printf("r=%s, ok=%t\n", r, ok)
 
+	// chan
+
+	ch := make(chan int, 3)
+
+	ch <- 1
+	ch <- 2
+	ch <- 3
+
+	d, e, f := <-ch, <-ch, <-ch
+	fmt.Println(d)
+	fmt.Println(e)
+	fmt.Println(f)
+
+	ch <- 4
+
+	close(ch)
 }
 
 func sum(s ...int) int {
